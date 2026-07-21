@@ -841,18 +841,23 @@ export default function AlarmView({ onNavigateToHems }) {
           {/* Footer */}
           <div className="table-footer">
             <div className="footer-left">
-              <button className="btn-action-solid" disabled={!selectedAlarmId || (selectedAlarm?.status !== 'unack' && selectedAlarm?.status !== 'active')} onClick={() => setActiveModal('ack')} style={{ height: 32 }}>
-                Acknowledge Selected <span className="kbd-badge">A</span>
+              <button className="btn-action-solid btn-ack-action" disabled={!selectedAlarmId || (selectedAlarm?.status !== 'unack' && selectedAlarm?.status !== 'active')} onClick={() => setActiveModal('ack')} style={{ height: 32 }}>
+                <Check size={14} />
+                <span>Acknowledge Selected</span>
+                <span className="kbd-badge">A</span>
               </button>
-              <button className="btn-action-outline" disabled={!selectedAlarmId} onClick={() => setActiveModal('resolve')} style={{ height: 32 }}>
-                Resolve Event <span className="kbd-badge">R</span>
+              <button className="btn-action-solid btn-resolve-action" disabled={!selectedAlarmId} onClick={() => setActiveModal('resolve')} style={{ height: 32 }}>
+                <CheckSquare size={14} />
+                <span>Resolve Event</span>
+                <span className="kbd-badge">R</span>
               </button>
               {selectedAlarmId && <span className="selected-count">Selected: <strong>{selectedAlarm?.assetId}</strong></span>}
             </div>
             <div className="footer-right">
-              <button className="btn-action-outline" disabled={!selectedAlarmId} onClick={() => handleInvestigate(selectedAlarm)}
-                style={{ height: 32, color: 'var(--primary)', borderColor: 'var(--primary)' }}>
-                Investigate <span className="kbd-badge">I</span>
+              <button className="btn-action-solid btn-investigate-action" disabled={!selectedAlarmId} onClick={() => handleInvestigate(selectedAlarm)} style={{ height: 32 }}>
+                <Search size={14} />
+                <span>Investigate</span>
+                <span className="kbd-badge">I</span>
               </button>
             </div>
           </div>
