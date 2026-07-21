@@ -2037,7 +2037,7 @@ input:checked + .hems-slider.pink:before {
 
 /* Confirm / Action Modals z-index stack on top of Inspector */
 .confirm-modal-overlay {
-  z-index: 10050 !important;
+  z-index: 20000 !important;
 }
 
 .drawer-close-btn:hover { color: var(--text-primary); }
@@ -2079,8 +2079,7 @@ input:checked + .hems-slider.pink:before {
   justify-content: flex-end;
 }
 
-/* Confirm modals */
-.confirm-modal-overlay { z-index: 6000; }
+
 
 .modal-card {
   background: #0e1e33;
