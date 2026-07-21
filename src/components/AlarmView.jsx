@@ -548,13 +548,13 @@ export default function AlarmView({ onNavigateToHems }) {
       {activeModal === 'ack' && (
         <div className="modal-overlay confirm-modal-overlay">
           <div className="modal-card">
-            <div className="modal-header"><AlertCircle size={18} /><h4>Confirm Acknowledge</h4></div>
+            <div className="modal-header"><AlertCircle size={20} /><h4>Confirm Acknowledge</h4></div>
             <div className="modal-body">
               <span className="modal-text">Are you sure you want to acknowledge alarm <strong>{selectedAlarm?.assetId}</strong>? This will record operator J. Miller and silence active sirens.</span>
             </div>
             <div className="modal-footer">
-              <button className="btn-action-outline" style={{ height: 32 }} onClick={() => setActiveModal(null)}>Cancel</button>
-              <button className="btn-action-solid" style={{ height: 32 }} onClick={handleConfirmAcknowledge}>Acknowledge</button>
+              <button className="btn-action-outline" onClick={() => setActiveModal(null)}>Cancel</button>
+              <button className="btn-action-solid btn-ack-action" onClick={handleConfirmAcknowledge}>Acknowledge</button>
             </div>
           </div>
         </div>
@@ -565,7 +565,7 @@ export default function AlarmView({ onNavigateToHems }) {
         <div className="modal-overlay confirm-modal-overlay">
           {loadingResolve && <div className="loading-overlay"><div className="spinner" /><span className="loading-text">Processing...</span></div>}
           <div className="modal-card">
-            <div className="modal-header"><CheckSquare size={18} /><h4>Resolve Event</h4></div>
+            <div className="modal-header"><CheckSquare size={20} /><h4>Resolve Event</h4></div>
             <div className="modal-body">
               <span className="modal-text">Confirm resolution for equipment <strong>{selectedAlarm?.assetId}</strong>. This will trigger Return to Normal (RTN) transition and archive the event.</span>
               <div className="modal-field">
@@ -576,8 +576,8 @@ export default function AlarmView({ onNavigateToHems }) {
               </div>
             </div>
             <div className="modal-footer">
-              <button className="btn-action-outline" style={{ height: 32 }} onClick={() => setActiveModal(null)}>Cancel</button>
-              <button className="btn-action-solid" style={{ height: 32 }} onClick={handleConfirmResolve}>Confirm</button>
+              <button className="btn-action-outline" onClick={() => setActiveModal(null)}>Cancel</button>
+              <button className="btn-action-solid btn-resolve-action" onClick={handleConfirmResolve}>Confirm</button>
             </div>
           </div>
         </div>
@@ -587,13 +587,13 @@ export default function AlarmView({ onNavigateToHems }) {
       {activeModal === 'remote' && (
         <div className="modal-overlay confirm-modal-overlay">
           <div className="modal-card">
-            <div className="modal-header"><Settings size={18} /><h4>Execute Remote Command</h4></div>
+            <div className="modal-header"><Settings size={20} /><h4>Execute Remote Command</h4></div>
             <div className="modal-body">
               <span className="modal-text">Confirm remote controller reset command to <strong>{selectedAlarm?.assetId}</strong>. This action is logged and tracked.</span>
             </div>
             <div className="modal-footer">
-              <button className="btn-action-outline" style={{ height: 32 }} onClick={() => setActiveModal(null)}>Cancel</button>
-              <button className="btn-action-solid" style={{ height: 32 }} onClick={handleConfirmRemoteOperation}>Execute</button>
+              <button className="btn-action-outline" onClick={() => setActiveModal(null)}>Cancel</button>
+              <button className="btn-action-solid" onClick={handleConfirmRemoteOperation}>Execute</button>
             </div>
           </div>
         </div>
