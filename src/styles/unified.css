@@ -1956,7 +1956,7 @@ input:checked + .hems-slider.pink:before {
 
 .sop-progress-bar-fill {
   height: 100%;
-  background: #00ff66;
+  background: #10b981;
   border-radius: 3px;
   transition: width 0.3s ease-in-out;
 }
@@ -2062,7 +2062,7 @@ input:checked + .hems-slider.pink:before {
 .sop-progress-container { margin-top: 8px; }
 .sop-progress-header { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-bottom: 4px; }
 .sop-progress-bar-bg { height: 4px; background: var(--border-color); border-radius: 2px; }
-.sop-progress-bar-fill { height: 100%; background: var(--primary); border-radius: 2px; transition: width 0.3s; }
+.sop-progress-bar-fill { height: 100%; background: #10b981; border-radius: 2px; transition: width 0.3s; }
 
 .notes-textarea {
   width: 100%; min-height: 60px; background: var(--bg-main);
