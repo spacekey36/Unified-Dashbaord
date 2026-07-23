@@ -28,6 +28,36 @@ export default function App() {
   const [alarms] = useState(initialAlarms);
   const alarmCounts = getAlarmCounts(alarms);
 
+  // Zoom / UI Scaling state
+  const [zoom, setZoom] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlZoom = params.get('zoom') || params.get('scale');
+    if (urlZoom) {
+      const val = parseFloat(urlZoom);
+      if (!isNaN(val) && val >= 0.5 && val <= 3) {
+        localStorage.setItem('app-zoom', val.toString());
+        return val.toString();
+      }
+    }
+    const savedZoom = localStorage.getItem('app-zoom');
+    if (savedZoom) return savedZoom;
+    
+    // Auto-detect Vuplex user agent to scale up by default (e.g. 1.5x)
+    if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().includes('vuplex')) {
+      return '1.5';
+    }
+    return '1.0';
+  });
+
+  useEffect(() => {
+    document.body.style.zoom = zoom;
+  }, [zoom]);
+
+  const handleZoomChange = (newZoom) => {
+    setZoom(newZoom);
+    localStorage.setItem('app-zoom', newZoom);
+  };
+
   // Show the popup after a 2s delay on initial load (on HEMS page only)
   useEffect(() => {
     // Find the most critical unacknowledged alarm
@@ -80,12 +110,16 @@ export default function App() {
         <HemsView
           onNavigateToAlarms={navigateToAlarms}
           alarmCounts={alarmCounts}
+          zoom={zoom}
+          setZoom={handleZoomChange}
         />
       )}
 
       {currentView === 'alarms' && (
         <AlarmView
           onNavigateToHems={navigateToHems}
+          zoom={zoom}
+          setZoom={handleZoomChange}
         />
       )}
 

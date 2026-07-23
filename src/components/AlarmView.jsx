@@ -132,7 +132,7 @@ function ActivePowerChart() {
 /* ══════════════════════════════════════════════════════════
    ALARM VIEW — Full alarm console with back navigation
    ══════════════════════════════════════════════════════════ */
-export default function AlarmView({ onNavigateToHems }) {
+export default function AlarmView({ onNavigateToHems, zoom, setZoom }) {
   const [theme, setTheme] = useState(() => localStorage.getItem('gridxr-theme') || 'light');
   const [showSettingsMenu, setShowSettingsMenu] = useState(false);
   const [showProfileCard, setShowProfileCard] = useState(false);
@@ -629,6 +629,18 @@ export default function AlarmView({ onNavigateToHems }) {
                   <select className="settings-select" value={theme} onChange={e => setTheme(e.target.value)}>
                     <option value="light">Light Theme</option>
                     <option value="dark">Dark Theme</option>
+                  </select>
+                </div>
+                <div className="settings-item" style={{ marginTop: '10px' }}>
+                  <div className="settings-item-label">UI Scale / Zoom</div>
+                  <select className="settings-select" value={zoom} onChange={e => setZoom(e.target.value)}>
+                    <option value="1.0">Normal (100%)</option>
+                    <option value="1.2">Large (120%)</option>
+                    <option value="1.4">Larger (140%)</option>
+                    <option value="1.5">Comfortable (150%)</option>
+                    <option value="1.6">Extra Large (160%)</option>
+                    <option value="1.8">Huge (180%)</option>
+                    <option value="2.0">Giant (200%)</option>
                   </select>
                 </div>
               </div>

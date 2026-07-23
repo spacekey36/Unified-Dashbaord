@@ -179,7 +179,7 @@ const STATIC_SOLAR_CAPABILITY = [
 const STATIC_BESS_ACTIVE_MEAS = [12.0, 14.5, 15.2, 14.0, 12.5, 10.0, 7.5, 4.0, 0.0, -3.5, -8.0, -12.5, -15.0, -14.2, -10.0, -4.5, 0.0];
 const STATIC_BESS_REACTIVE_MEAS = [1.5, 2.0, 2.8, 2.2, 1.0, 0.0, -1.0, -2.5, -3.0, -2.8, -1.5, 0.0, 1.2, 2.5, 3.0, 2.2, 1.0];
 
-export default function HemsView({ onNavigateToAlarms, alarmCounts }) {
+export default function HemsView({ onNavigateToAlarms, alarmCounts, zoom, setZoom }) {
   const [setpointsOpen, setSetpointsOpen] = useState(false);
 
   // Setpoint Form State
@@ -260,6 +260,34 @@ export default function HemsView({ onNavigateToAlarms, alarmCounts }) {
 
           <div className="hems-header-subtext">
             Digital Energy Solutions<br />Power Transmission &amp; Distribution
+          </div>
+
+          <div className="hems-zoom-container" style={{ display: 'flex', alignItems: 'center', marginRight: '12px' }}>
+            <select 
+              className="hems-select-input-sm" 
+              value={zoom} 
+              onChange={e => setZoom(e.target.value)}
+              style={{ 
+                background: '#102038', 
+                border: '1px solid #22426e', 
+                color: '#fff', 
+                fontSize: '11px', 
+                borderRadius: '4px', 
+                padding: '3px 6px',
+                cursor: 'pointer',
+                outline: 'none',
+                height: '28px'
+              }}
+              title="UI Scale / Zoom"
+            >
+              <option value="1.0">100% Scale</option>
+              <option value="1.2">120% Scale</option>
+              <option value="1.4">140% Scale</option>
+              <option value="1.5">150% Scale</option>
+              <option value="1.6">160% Scale</option>
+              <option value="1.8">180% Scale</option>
+              <option value="2.0">200% Scale</option>
+            </select>
           </div>
 
           <div className="hems-user-avatar">
