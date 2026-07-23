@@ -619,7 +619,7 @@ export default function AlarmView({ onNavigateToHems, zoom, setZoom }) {
           <div className="settings-menu-container" ref={settingsRef}>
             <button className="icon-btn" onClick={() => setShowSettingsMenu(!showSettingsMenu)} title="Display Settings"
               style={{ backgroundColor: showSettingsMenu ? 'var(--primary-light)' : 'transparent', color: showSettingsMenu ? 'var(--primary)' : 'var(--text-muted)' }}>
-              <Settings size={17} />
+              <Settings size={24} />
             </button>
             {showSettingsMenu && (
               <div className="settings-menu">
