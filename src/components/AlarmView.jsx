@@ -129,6 +129,16 @@ function ActivePowerChart() {
   );
 }
 
+const ZOOM_OPTIONS = [
+  { value: '1.0', label: 'Normal', percent: '100%', description: 'Default scale for standard displays' },
+  { value: '1.2', label: 'Large', percent: '120%', description: 'Slightly larger layout elements' },
+  { value: '1.4', label: 'Larger', percent: '140%', description: 'Increased size for better readability' },
+  { value: '1.5', label: 'Comfortable', percent: '150%', description: 'Optimized scaling for high-res monitors' },
+  { value: '1.6', label: 'Extra Large', percent: '160%', description: 'Significant zoom for clarity' },
+  { value: '1.8', label: 'Huge', percent: '180%', description: 'Very large text and details' },
+  { value: '2.0', label: 'Giant', percent: '200%', description: 'Maximum scaling view' },
+];
+
 /* ══════════════════════════════════════════════════════════
    ALARM VIEW — Full alarm console with back navigation
    ══════════════════════════════════════════════════════════ */
@@ -151,6 +161,7 @@ export default function AlarmView({ onNavigateToHems, zoom, setZoom }) {
   };
 
   const [selectedAlarmId, setSelectedAlarmId] = useState(null);
+  const [showZoomSelectorModal, setShowZoomSelectorModal] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [toasts, setToasts] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
@@ -599,6 +610,61 @@ export default function AlarmView({ onNavigateToHems, zoom, setZoom }) {
         </div>
       )}
 
+      {/* Zoom Selector Modal */}
+      {showZoomSelectorModal && (
+        <div className="modal-overlay zoom-modal-overlay" onClick={() => setShowZoomSelectorModal(false)}>
+          <div className="zoom-selector-card" onClick={e => e.stopPropagation()}>
+            <div className="zoom-modal-header">
+              <div className="zoom-modal-title-group">
+                <Palette size={18} className="zoom-modal-icon" />
+                <h3>Select UI Display Scale</h3>
+              </div>
+              <button className="zoom-modal-close-btn" onClick={() => setShowZoomSelectorModal(false)}>
+                <X size={16} />
+              </button>
+            </div>
+            
+            <div className="zoom-modal-subtitle">
+              Choose a scaling preset to optimize the dashboard size for your display environment.
+            </div>
+
+            <div className="zoom-options-grid">
+              {ZOOM_OPTIONS.map(opt => {
+                const isSelected = zoom === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    className={`zoom-card-option ${isSelected ? 'active' : ''}`}
+                    onClick={() => {
+                      setZoom(opt.value);
+                    }}
+                  >
+                    <div className="zoom-card-badge">{opt.percent}</div>
+                    <div className="zoom-card-details">
+                      <div className="zoom-card-name">{opt.label}</div>
+                      <div className="zoom-card-desc">{opt.description}</div>
+                    </div>
+                    {isSelected && (
+                      <div className="zoom-card-selected-check">
+                        <Check size={14} strokeWidth={3} />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="zoom-modal-footer">
+              <span className="zoom-current-lbl">Active scale factor: <strong>{Math.round(parseFloat(zoom) * 100)}%</strong></span>
+              <button type="button" className="btn-action-solid" onClick={() => setShowZoomSelectorModal(false)}>
+                Confirm &amp; Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ── HEADER ── */}
       <header className="alarm-app-header">
         <div className="alarm-header-left">
@@ -633,15 +699,17 @@ export default function AlarmView({ onNavigateToHems, zoom, setZoom }) {
                 </div>
                 <div className="settings-item" style={{ marginTop: '10px' }}>
                   <div className="settings-item-label">UI Scale / Zoom</div>
-                  <select className="settings-select" value={zoom} onChange={e => setZoom(e.target.value)}>
-                    <option value="1.0">Normal (100%)</option>
-                    <option value="1.2">Large (120%)</option>
-                    <option value="1.4">Larger (140%)</option>
-                    <option value="1.5">Comfortable (150%)</option>
-                    <option value="1.6">Extra Large (160%)</option>
-                    <option value="1.8">Huge (180%)</option>
-                    <option value="2.0">Giant (200%)</option>
-                  </select>
+                  <button
+                    type="button"
+                    className="settings-select-btn"
+                    onClick={() => {
+                      setShowSettingsMenu(false);
+                      setShowZoomSelectorModal(true);
+                    }}
+                  >
+                    <span>{ZOOM_OPTIONS.find(o => o.value === zoom)?.label || 'Normal'} ({Math.round(parseFloat(zoom) * 100)}%)</span>
+                    <ExternalLink size={12} style={{ opacity: 0.7 }} />
+                  </button>
                 </div>
               </div>
             )}
