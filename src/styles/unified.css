@@ -1420,7 +1420,7 @@ input:checked + .hems-slider.pink:before {
 
 /* Table */
 .table-wrapper {
-  flex: 1;
+  flex: 0 1 auto;
   overflow-y: auto;
   position: relative;
 }
